@@ -2,7 +2,9 @@ package TommasoEleodori.BEU2W2D5.users;
 
 import TommasoEleodori.BEU2W2D5.config.EmailSender;
 import TommasoEleodori.BEU2W2D5.exceptions.BadRequestException;
+import TommasoEleodori.BEU2W2D5.exceptions.NameNotFoundException;
 import TommasoEleodori.BEU2W2D5.exceptions.NotFoundException;
+import TommasoEleodori.BEU2W2D5.exceptions.SurnameNotFoundException;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,11 +85,11 @@ public class UserService {
         userepo.delete(found);
     }
 
-    public List<User> findByName(String name) throws NotFoundException {
+    public List<User> findByName(String name) throws NameNotFoundException {
         return userepo.findByNameIgnoreCase(name).stream().toList();
     }
 
-    public List<User> findBySurname(String surname) throws NotFoundException {
+    public List<User> findBySurname(String surname) throws SurnameNotFoundException {
         return userepo.findBySurnameIgnoreCase(surname).stream().toList();
     }
 

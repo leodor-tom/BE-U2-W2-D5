@@ -10,4 +10,5 @@ public class NotFoundException extends RuntimeException {
     public NotFoundException(String username) {
         super("Record: " + username + " not found");
     }
+
 }
