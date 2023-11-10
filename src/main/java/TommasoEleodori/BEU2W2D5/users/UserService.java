@@ -78,8 +78,8 @@ public class UserService {
 
     public void findByIdAndDelete(UUID id) throws NotFoundException, IOException {
         User found = this.findById(id);
-        userepo.delete(found);
         emailsdr.sendDeletedAccountEmail(found.getEmail(), found.getName());
+        userepo.delete(found);
     }
 
 }

@@ -22,8 +22,8 @@ public class Device {
     @Enumerated(EnumType.STRING)
     private DeviceType deviceType;
     @Enumerated(EnumType.STRING)
-    private DeviceStatus deviceStatus;
-    @ManyToOne(fetch = FetchType.LAZY)
+    private DeviceStatus deviceStatus = DeviceStatus.AVAILABLE;
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 }

@@ -66,4 +66,34 @@ public class EmailSender {
         request.setBody(mail.build());
         sg.api(request);
     }
+
+    public void sendNewDeviceEmail(String recipient, String name, String type) throws IOException {
+        Email from = new Email(sender);
+        String subject = "New Device";
+        Email to = new Email(recipient);
+        Content content = new Content("text/plain", "Hi " + name + ", your new " + type + "it's registered!");
+        Mail mail = new Mail(from, subject, to, content);
+
+        SendGrid sg = new SendGrid(apikey);
+        Request request = new Request();
+        request.setMethod(Method.POST);
+        request.setEndpoint("mail/send");
+        request.setBody(mail.build());
+        sg.api(request);
+    }
+
+    public void sendDeletedDeviceEmail(String recipient, String name, String type) throws IOException {
+        Email from = new Email(sender);
+        String subject = "Device Deleted";
+        Email to = new Email(recipient);
+        Content content = new Content("text/plain", "Hi " + name + ", your device has been deleted successfully");
+        Mail mail = new Mail(from, subject, to, content);
+
+        SendGrid sg = new SendGrid(apikey);
+        Request request = new Request();
+        request.setMethod(Method.POST);
+        request.setEndpoint("mail/send");
+        request.setBody(mail.build());
+        sg.api(request);
+    }
 }
