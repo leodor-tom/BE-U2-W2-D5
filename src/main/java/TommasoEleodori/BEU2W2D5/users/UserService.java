@@ -36,7 +36,7 @@ public class UserService {
     }
 
     public UUID save(UserDTO body) throws BadRequestException, IOException {
-        userepo.findByEmail(body.email()).ifPresent(user -> {
+        userepo.findByEmailIgnoreCase(body.email()).ifPresent(user -> {
             throw new BadRequestException("The email: " + user.getEmail() + "it's already used");
         });
         User user = new User();
@@ -64,7 +64,7 @@ public class UserService {
             found.setAvatar("http://ui-avatars.com/api/?name=" + body.name() + "+" + body.surname());
         }
         if (!found.getEmail().equals(body.email())) {
-            userepo.findByEmail(body.email()).ifPresent(user -> {
+            userepo.findByEmailIgnoreCase(body.email()).ifPresent(user -> {
                 throw new BadRequestException("The email: " + user.getEmail() + "it's already used");
             });
         }
@@ -85,6 +85,14 @@ public class UserService {
 
     public List<User> findByName(String name) throws NotFoundException {
         return userepo.findByNameIgnoreCase(name).stream().toList();
+    }
+
+    public List<User> findBySurname(String surname) throws NotFoundException {
+        return userepo.findBySurnameIgnoreCase(surname).stream().toList();
+    }
+
+    public User findByUsername(String username) {
+        return userepo.findByUsernameIgnoreCase(username).orElseThrow(() -> new NotFoundException(username));
     }
 
 }

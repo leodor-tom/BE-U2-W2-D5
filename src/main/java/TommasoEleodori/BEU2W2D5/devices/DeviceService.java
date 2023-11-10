@@ -1,6 +1,8 @@
 package TommasoEleodori.BEU2W2D5.devices;
 
 import TommasoEleodori.BEU2W2D5.config.EmailSender;
+import TommasoEleodori.BEU2W2D5.devices.enums.DeviceStatus;
+import TommasoEleodori.BEU2W2D5.devices.enums.DeviceType;
 import TommasoEleodori.BEU2W2D5.exceptions.BadRequestException;
 import TommasoEleodori.BEU2W2D5.exceptions.NotFoundException;
 import TommasoEleodori.BEU2W2D5.users.UserService;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -60,5 +63,16 @@ public class DeviceService {
         dr.delete(device);
     }
 
+    public List<Device> findByUserId(UUID userId) throws NotFoundException {
+        return dr.findByUserId(userId);
+    }
+
+    public List<Device> findByDeviceType(DeviceType deviceType) throws NotFoundException {
+        return dr.findByDeviceType(deviceType);
+    }
+
+    public List<Device> findByDeviceStatus(DeviceStatus deviceStatus) throws NotFoundException {
+        return dr.findByDeviceStatus(deviceStatus);
+    }
 
 }

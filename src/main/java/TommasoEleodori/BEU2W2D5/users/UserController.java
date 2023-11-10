@@ -60,4 +60,9 @@ public class UserController {
     public List<User> findByName(@PathVariable String name) {
         return us.findByName(name);
     }
+
+    @GetMapping("/surname/{surname}")
+    public List<User> findBySurname(@PathVariable String surname) {
+        return us.findBySurname(surname);
+    }
 }
