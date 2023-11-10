@@ -1,5 +1,7 @@
 package TommasoEleodori.BEU2W2D5.devices;
 
+import TommasoEleodori.BEU2W2D5.devices.enums.DeviceStatus;
+import TommasoEleodori.BEU2W2D5.devices.enums.DeviceType;
 import TommasoEleodori.BEU2W2D5.users.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,9 +19,9 @@ public class Device {
     @Id
     @GeneratedValue
     private UUID id;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private DeviceType deviceType;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private DeviceStatus deviceStatus;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

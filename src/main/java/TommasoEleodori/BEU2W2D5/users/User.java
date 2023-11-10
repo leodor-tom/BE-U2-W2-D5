@@ -20,7 +20,9 @@ public class User {
     @Id
     @GeneratedValue
     private UUID id;
+    @Column(length = 20)
     private String name;
+    @Column(length = 40)
     private String surname;
     private String Email;
     private String username;
