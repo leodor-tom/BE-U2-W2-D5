@@ -12,4 +12,8 @@ public class ExceptionsHandler {
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorDTO handleNotFound(NotFoundException e){return new ErrorDTO(e.getMessage(), new Date());}
+
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDTO handleBadRequest(BadRequestException e){return new ErrorDTO(e.getMessage(), new Date());}
 }

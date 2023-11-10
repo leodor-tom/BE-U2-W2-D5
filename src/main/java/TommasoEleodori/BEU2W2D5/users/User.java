@@ -24,8 +24,9 @@ public class User {
     private String name;
     @Column(length = 40)
     private String surname;
-    private String Email;
+    private String email;
     private String username;
+    private String avatar;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
