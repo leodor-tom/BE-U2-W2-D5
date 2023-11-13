@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RestControllerAdvice
 public class ExceptionsHandler {
@@ -17,8 +19,14 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorDTO handleBadRequest(BadRequestException e) {
-        return new ErrorDTO(e.getMessage(), new Date());
+    public ErrorsResponseListDTO handleBadRequest(BadRequestException e) {
+        if (e.getErrorList() != null) {
+            List<String> errorsList = e.getErrorList().stream()
+                    .map(objectError -> objectError.getDefaultMessage()).toList();
+            return new ErrorsResponseListDTO(e.getMessage(), new Date(), new ArrayList<>());
+        } else {
+            return new ErrorsResponseListDTO(e.getMessage(), new Date(), new ArrayList<>());
+        }
     }
 
     @ExceptionHandler(NameNotFoundException.class)

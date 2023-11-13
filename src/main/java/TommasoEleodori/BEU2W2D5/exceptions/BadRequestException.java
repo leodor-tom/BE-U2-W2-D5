@@ -1,7 +1,19 @@
 package TommasoEleodori.BEU2W2D5.exceptions;
 
-import java.util.UUID;
+import lombok.Getter;
+import org.springframework.validation.ObjectError;
 
-public class BadRequestException extends RuntimeException{
-    public BadRequestException(String message){super(message);}
+import java.util.List;
+
+@Getter
+public class BadRequestException extends RuntimeException {
+    private List<ObjectError> errorList;
+
+    public BadRequestException(String message) {
+        super(message);
+    }
+
+    public BadRequestException(List<ObjectError> errors) {
+        this.errorList = errors;
+    }
 }
