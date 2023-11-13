@@ -98,4 +98,8 @@ public class UserService {
         return userepo.findByUsernameIgnoreCase(username).orElseThrow(() -> new NotFoundException(username));
     }
 
+    public User findByEmail(String email) {
+        return userepo.findByEmailIgnoreCase(email).orElseThrow(() -> new NotFoundException("The user whit the following email: " + email + " doesn't exist."));
+    }
+
 }
