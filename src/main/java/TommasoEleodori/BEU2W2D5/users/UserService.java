@@ -45,6 +45,7 @@ public class UserService {
         user.setName(body.name());
         user.setSurname(body.surname());
         user.setEmail(body.email());
+        user.setPassword(body.password());
         user.setUsername(body.name() + "_" + body.surname());
         user.setAvatar("http://ui-avatars.com/api/?name=" + body.name() + "+" + body.surname());
         userepo.save(user);

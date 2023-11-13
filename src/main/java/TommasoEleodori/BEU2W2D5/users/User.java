@@ -25,6 +25,7 @@ public class User {
     @Column(length = 40)
     private String surname;
     private String email;
+    private String password;
     private String username;
     private String avatar;
 
