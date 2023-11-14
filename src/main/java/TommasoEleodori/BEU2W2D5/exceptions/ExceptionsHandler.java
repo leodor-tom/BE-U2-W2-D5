@@ -1,10 +1,12 @@
 package TommasoEleodori.BEU2W2D5.exceptions;
 
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +24,7 @@ public class ExceptionsHandler {
     public ErrorsResponseListDTO handleBadRequest(BadRequestException e) {
         if (e.getErrorList() != null) {
             List<String> errorsList = e.getErrorList().stream()
-                    .map(objectError -> objectError.getDefaultMessage()).toList();
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage).toList();
             return new ErrorsResponseListDTO(e.getMessage(), new Date(), new ArrayList<>());
         } else {
             return new ErrorsResponseListDTO(e.getMessage(), new Date(), new ArrayList<>());
@@ -38,6 +40,18 @@ public class ExceptionsHandler {
     @ExceptionHandler(SurnameNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorDTO handleSurnameNotFound(SurnameNotFoundException e) {
+        return new ErrorDTO(e.getMessage(), new Date());
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)//401
+    public ErrorDTO handleUnauthorized(UnauthorizedException e) {
+        return new ErrorDTO(e.getMessage(), new Date());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)//403
+    public ErrorDTO handleAccesDenied(AccessDeniedException e) {
         return new ErrorDTO(e.getMessage(), new Date());
     }
 
