@@ -37,20 +37,12 @@ public class UserService {
         return userepo.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
-    public UUID save(UserDTO body) throws BadRequestException, IOException {
-        userepo.findByEmailIgnoreCase(body.email()).ifPresent(user -> {
-            throw new BadRequestException("The email: " + user.getEmail() + "it's already used");
-        });
-        User user = new User();
-        user.setName(body.name());
-        user.setSurname(body.surname());
-        user.setEmail(body.email());
-        user.setPassword(body.password());
-        user.setUsername(body.name() + "_" + body.surname());
-        user.setAvatar("http://ui-avatars.com/api/?name=" + body.name() + "+" + body.surname());
+    public User findByIdAndPatchRole(UUID id, RoleDTO body) throws NotFoundException, IOException {
+        User user = this.findById(id);
+        user.setRole(body.role());
         userepo.save(user);
-        emailsdr.sendRegistrationEmail(user.getEmail(), user.getName());
-        return user.getId();
+        emailsdr.sendUpdateAccountEmail(user.getEmail(), user.getName());
+        return user;
     }
 
     public String uploadPicture(UUID id, MultipartFile file) throws NotFoundException, IOException {

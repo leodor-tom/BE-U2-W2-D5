@@ -4,7 +4,6 @@ import TommasoEleodori.BEU2W2D5.exceptions.BadRequestException;
 import TommasoEleodori.BEU2W2D5.users.LoginDTO;
 import TommasoEleodori.BEU2W2D5.users.LoginSuccesDTO;
 import TommasoEleodori.BEU2W2D5.users.UserDTO;
-import TommasoEleodori.BEU2W2D5.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -19,8 +18,7 @@ import java.util.UUID;
 public class AuthController {
     @Autowired
     private AuthService as;
-    @Autowired
-    private UserService us;
+
 
     @PostMapping("/login")
     public LoginSuccesDTO login(@RequestBody LoginDTO body) {
@@ -34,7 +32,7 @@ public class AuthController {
             throw new BadRequestException(validation.getAllErrors());
         } else {
             try {
-                return us.save(body);
+                return as.save(body);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

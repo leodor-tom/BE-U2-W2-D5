@@ -51,7 +51,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)//403
-    public ErrorDTO handleAccesDenied(AccessDeniedException e) {
+    public ErrorDTO handleAccessDenied(AccessDeniedException e) {
         return new ErrorDTO(e.getMessage(), new Date());
     }
 
