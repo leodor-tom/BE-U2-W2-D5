@@ -29,9 +29,8 @@ public class AuthService {
 
     public String authenticateUser(LoginDTO body) {
         User user = us.findByEmail(body.email());
-        SubjectDTO subjectDTO = new SubjectDTO(String.valueOf(user.getSurname()), String.valueOf(user.getRole()));
         if (bcrypt.matches(body.password(), user.getPassword())) {
-            return tools.createToken(subjectDTO);
+            return tools.createToken(user);
         } else {
             throw new UnauthorizedException("Login failed. Please check your username and password and try again");
         }
